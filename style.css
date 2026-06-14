@@ -21,6 +21,7 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
+  font-size: 18px;
 }
 
 .container {
@@ -162,8 +163,8 @@ img { display: block; max-width: 100%; }
 }
 
 .childhood__photo-wrap {
-  width: 140px;
-  height: 140px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid rgba(255,255,255,0.5);
