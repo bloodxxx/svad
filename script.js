@@ -50,7 +50,6 @@ document.getElementById('cal-btn').addEventListener('click', function () {
   const isAndroid = /Android/.test(ua);
 
   if (isIOS) {
-    // Apple Calendar через webcal/data URI
     const ics = [
       'BEGIN:VCALENDAR', 'VERSION:2.0',
       'BEGIN:VEVENT',
@@ -62,11 +61,11 @@ document.getElementById('cal-btn').addEventListener('click', function () {
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\r\n');
-    const blob = new Blob([ics], { type: 'text/calendar' });
-    const url = URL.createObjectURL(blob);
-    window.location.href = url;
+    const link = document.createElement('a');
+    link.href = 'data:text/calendar;charset=utf8,' + encodeURIComponent(ics);
+    link.download = 'wedding.ics';
+    link.click();
   } else if (isAndroid) {
-    // Google Calendar (открывается в браузере, затем предлагает приложение)
     window.open(
       'https://www.google.com/calendar/render?action=TEMPLATE' +
       '&text=' + title +
