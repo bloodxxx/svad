@@ -37,6 +37,57 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+// ===== CALENDAR =====
+document.getElementById('cal-btn').addEventListener('click', function () {
+  const title = encodeURIComponent('Свадьба Ильи и Ксении');
+  const start = '20260731T154500';
+  const end = '20260731T230000';
+  const location = encodeURIComponent('ул. Сибгата Хакима, д. 4, Казань');
+  const details = encodeURIComponent('Центр семьи «Казан», серебряный зал. Банкет: снт «Медик» 596');
+
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  const isAndroid = /Android/.test(ua);
+
+  if (isIOS) {
+    // Apple Calendar через webcal/data URI
+    const ics = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0',
+      'BEGIN:VEVENT',
+      'DTSTART:' + start,
+      'DTEND:' + end,
+      'SUMMARY:Свадьба Ильи и Ксении',
+      'LOCATION:ул. Сибгата Хакима, д. 4, Казань',
+      'DESCRIPTION:Центр семьи «Казан», серебряный зал. Банкет: снт «Медик» 596',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    const blob = new Blob([ics], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    window.location.href = url;
+  } else if (isAndroid) {
+    // Google Calendar (открывается в браузере, затем предлагает приложение)
+    window.open(
+      'https://www.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + title +
+      '&dates=' + start + '%2F' + end +
+      '&location=' + location +
+      '&details=' + details,
+      '_blank'
+    );
+  } else {
+    // Desktop — Google Calendar
+    window.open(
+      'https://www.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + title +
+      '&dates=' + start + '%2F' + end +
+      '&location=' + location +
+      '&details=' + details,
+      '_blank'
+    );
+  }
+});
+
 // ===== RSVP TOGGLE =====
 document.getElementById('rsvp-toggle').addEventListener('click', function () {
   const wrap = document.getElementById('rsvp-form-wrap');

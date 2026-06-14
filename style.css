@@ -97,6 +97,14 @@ img { display: block; max-width: 100%; }
 .nav__link:hover { color: var(--color-gold); }
 .nav__link--cal { color: var(--color-gold); }
 
+.nav__link--btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 /* ===== HERO ===== */
 .hero {
   position: relative;
