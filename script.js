@@ -12,6 +12,7 @@ function updateCountdown() {
   const diff = wedding - now;
 
   if (diff <= 0) {
+    document.getElementById('cd-weeks').textContent = '0';
     document.getElementById('cd-days').textContent = '0';
     document.getElementById('cd-hours').textContent = '0';
     document.getElementById('cd-minutes').textContent = '0';
@@ -19,11 +20,14 @@ function updateCountdown() {
     return;
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const weeks = Math.floor(totalDays / 7);
+  const days = totalDays % 7;
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+  document.getElementById('cd-weeks').textContent = String(weeks).padStart(2, '0');
   document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
   document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
   document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
@@ -32,6 +36,14 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// ===== RSVP TOGGLE =====
+document.getElementById('rsvp-toggle').addEventListener('click', function () {
+  const wrap = document.getElementById('rsvp-form-wrap');
+  wrap.hidden = false;
+  this.style.display = 'none';
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 // ===== YANDEX MAP =====
 ymaps.ready(function () {
