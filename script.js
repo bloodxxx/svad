@@ -130,11 +130,6 @@ function getCheckedValues(name) {
     .join(', ') || 'не указано';
 }
 
-function getRadioValue(name) {
-  const checked = document.querySelector(`input[name="${name}"]:checked`);
-  return checked ? checked.value : null;
-}
-
 function showError(id) {
   document.getElementById(id).style.display = 'block';
 }
@@ -148,11 +143,9 @@ function validateForm() {
 
   const name = document.getElementById('guest-name');
   const phone = document.getElementById('guest-phone');
-  const attendance = getRadioValue('attendance');
 
   hideError('err-name');
   hideError('err-phone');
-  hideError('err-attendance');
   name.classList.remove('invalid');
   phone.classList.remove('invalid');
 
@@ -165,11 +158,6 @@ function validateForm() {
   if (!phone.value.trim() || phone.value.replace(/\D/g, '').length < 10) {
     showError('err-phone');
     phone.classList.add('invalid');
-    valid = false;
-  }
-
-  if (!attendance) {
-    showError('err-attendance');
     valid = false;
   }
 
@@ -190,7 +178,6 @@ form.addEventListener('submit', function (e) {
     to_email: 'cursedbaloo@gmail.com',
     guest_name: document.getElementById('guest-name').value.trim(),
     guest_phone: document.getElementById('guest-phone').value.trim(),
-    attendance: getRadioValue('attendance'),
     food: getCheckedValues('food'),
     drinks: getCheckedValues('drinks'),
     guest_message: document.getElementById('guest-message').value.trim() || 'нет',
